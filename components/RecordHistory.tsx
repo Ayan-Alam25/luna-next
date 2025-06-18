@@ -1,13 +1,13 @@
 import getRecords from "@/app/actions/getRecords";
-import BarChart from "./BarChart";
-import { BsGraphDown } from "react-icons/bs";
+import RecordItem from "./RecordItem";
+import { Record } from "@/types/Record";
 
-const RecordChart = async () => {
+const RecordHistory = async () => {
   const { records, error } = await getRecords();
 
   if (error) {
     return (
-      <div className="bg-red-50 text-red-700 p-4 rounded-lg border border-red-200 text-center">
+      <div className="bg-red-50 text-red-700 p-4 rounded-lg border border-red-200">
         <p>{error}</p>
       </div>
     );
@@ -34,7 +34,7 @@ const RecordChart = async () => {
           No Sleep Records Found
         </h3>
         <p className="text-gray-600 text-center">
-          Start tracking your sleep to see your records here.
+          Start tracking your sleep to see your history here.
         </p>
       </div>
     );
@@ -42,20 +42,14 @@ const RecordChart = async () => {
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-      <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-        <BsGraphDown className="text-blue-500" />
-        Sleep Overview
-      </h3>
-      <div className="h-64">
-        <BarChart
-          records={records.map((record) => ({
-            ...record,
-            date: String(record.date),
-          }))}
-        />
+      
+      <div className="space-y-3">
+        {records.map((record: Record) => (
+          <RecordItem key={record.id} record={record} />
+        ))}
       </div>
     </div>
   );
 };
 
-export default RecordChart;
+export default RecordHistory;

@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import addSleepRecord from "@/app/actions/addSleepRecord";
 import { FiCalendar } from "react-icons/fi";
+import { VscNewFile } from "react-icons/vsc";
 
 const AddNewRecord = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -37,6 +38,7 @@ const AddNewRecord = () => {
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
       <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+        <VscNewFile className="text-blue-500" />
         Add New Sleep Record
       </h3>
 

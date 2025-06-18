@@ -2,6 +2,10 @@ import AddNewRecord from "@/components/AddNewRecord";
 import Guest from "@/components/Guest";
 import { currentUser } from "@clerk/nextjs/server";
 import RecordChart from "../components/RecordChart";
+import AverageSleep from "@/components/AverageSleep";
+import BestWorstSleep from "@/components/BestWorstSleep";
+import RecordHistory from "@/components/RecordHistory";
+import { GoHistory } from "react-icons/go";
 
 export default async function HomePage() {
   const user = await currentUser();
@@ -33,7 +37,7 @@ export default async function HomePage() {
                 <div className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full">
                   Member since {new Date(user.createdAt).toLocaleDateString()}
                 </div>
-                <div className="bg-violet-50 text-violet-700 px-3 py-1 rounded-full">
+                <div className="bg-pink-50 text-pink-700 px-3 py-1 rounded-full">
                   Last active:{" "}
                   {user.lastActiveAt
                     ? new Date(user.lastActiveAt).toLocaleDateString()
@@ -55,8 +59,8 @@ export default async function HomePage() {
         {/* Right Column - Stats */}
         <div className="lg:col-span-2 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* AverageSleep  */}
-            {/* BestWorstSleep  */}
+            <AverageSleep />
+            <BestWorstSleep />
           </div>
           <RecordChart />
         </div>
@@ -66,23 +70,10 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white p-6 rounded-xl shadow-sm">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-blue-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            <GoHistory className="text-blue-500" />
             Your Sleep History
           </h2>
-          {/* <RecordHistory /> */}
+          <RecordHistory />
         </div>
       </section>
     </main>
