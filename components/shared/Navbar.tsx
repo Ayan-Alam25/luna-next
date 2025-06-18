@@ -5,6 +5,7 @@ import NavLink from "../NavLink";
 
 export default async function Navbar() {
   const user = await checkUser();
+  console.log(user);
 
   return (
     <nav className="bg-white shadow-sm">

@@ -5,19 +5,19 @@ const Guest = () => {
     const Testimonials = [
       {
         quote:
-          "Luna helped me identify my late-night screen time as the main cause of my poor sleep quality.",
+          `"Luna helped me identify my late-night screen time as the main cause of my poor sleep quality."`,
         author: "Emily K.",
         role: "Graphic Designer",
       },
       {
         quote:
-          "I've gained an extra hour of productive time each day thanks to better sleep with Luna.",
+          `"I've gained an extra hour of productive time each day thanks to better sleep with Luna."`,
         author: "John D.",
         role: "Software Engineer",
       },
       {
         quote:
-          "The sleep recommendations actually work! My energy levels have never been better.",
+          `"The sleep recommendations actually work! My energy levels have never been better."`,
         author: "Saina S.",
         role: "Teacher",
       },
