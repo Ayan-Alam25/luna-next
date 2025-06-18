@@ -45,7 +45,7 @@ const AboutPage = () => {
           <div className="flex flex-col md:flex-row gap-8 items-center">
             <div className="md:w-1/2">
               <Image
-                src="/sleep-analysis.jpg"
+                src="/sleep-tracker.png"
                 width={450}
                 height={100}
                 alt="Sleep analysis"

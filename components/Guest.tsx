@@ -23,6 +23,34 @@ const Guest = () => {
       },
     ];
 
+    const Faqs = [
+      {
+        question: "How does Luna track my sleep?",
+        answer:
+          "Luna uses your device's sensors or manual input to analyze sleep duration and quality. Our algorithms detect sleep patterns and provide detailed insights about your sleep cycles.",
+      },
+      {
+        question: "Is my sleep data private and secure?",
+        answer:
+          "Absolutely. We prioritize your privacy and all sleep data is encrypted. We never share your personal information with third parties without your consent.",
+      },
+      {
+        question: "Do I need special equipment to use Luna?",
+        answer:
+          "No special equipment needed! Luna works with your smartphone or wearable device. For best results, we recommend keeping your device nearby while you sleep.",
+      },
+      {
+        question: "How can Luna help improve my sleep?",
+        answer:
+          "Luna identifies patterns in your sleep habits, provides personalized recommendations, and helps you establish healthy bedtime routines through science-backed methods.",
+      },
+      {
+        question: "Is there a free version available?",
+        answer:
+          "Yes, Luna offers a free version with basic tracking features. Our premium version unlocks advanced analytics and personalized sleep improvement plans.",
+      },
+    ];
+
   return (
     <div className="font-sans bg-gray-50 text-gray-800">
       {/* Hero Section */}
@@ -49,7 +77,7 @@ const Guest = () => {
         </div>
         <div className="lg:w-1/2 flex justify-center">
           <Image
-            src="/sleep-tracker.png"
+            src="/sleep-analysis.jpg"
             width={600}
             height={400}
             alt="Luna Sleep Dashboard Preview"
@@ -65,33 +93,7 @@ const Guest = () => {
             Frequently Asked Questions
           </h2>
           <div className="space-y-6">
-            {[
-              {
-                question: "How does Luna track my sleep?",
-                answer:
-                  "Luna uses your device's sensors or manual input to analyze sleep duration and quality. Our algorithms detect sleep patterns and provide detailed insights about your sleep cycles.",
-              },
-              {
-                question: "Is my sleep data private and secure?",
-                answer:
-                  "Absolutely. We prioritize your privacy and all sleep data is encrypted. We never share your personal information with third parties without your consent.",
-              },
-              {
-                question: "Do I need special equipment to use Luna?",
-                answer:
-                  "No special equipment needed! Luna works with your smartphone or wearable device. For best results, we recommend keeping your device nearby while you sleep.",
-              },
-              {
-                question: "How can Luna help improve my sleep?",
-                answer:
-                  "Luna identifies patterns in your sleep habits, provides personalized recommendations, and helps you establish healthy bedtime routines through science-backed methods.",
-              },
-              {
-                question: "Is there a free version available?",
-                answer:
-                  "Yes, Luna offers a free version with basic tracking features. Our premium version unlocks advanced analytics and personalized sleep improvement plans.",
-              },
-            ].map((faq, index) => (
+            {Faqs.map((faq, index) => (
               <div key={index} className="border-b border-gray-200 pb-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   {faq.question}
