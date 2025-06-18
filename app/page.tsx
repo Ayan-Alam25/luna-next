@@ -1,6 +1,7 @@
 import AddNewRecord from "@/components/AddNewRecord";
 import Guest from "@/components/Guest";
 import { currentUser } from "@clerk/nextjs/server";
+import RecordChart from "../components/RecordChart";
 
 export default async function HomePage() {
   const user = await currentUser();
@@ -57,7 +58,7 @@ export default async function HomePage() {
             {/* AverageSleep  */}
             {/* BestWorstSleep  */}
           </div>
-          {/* RecordChart  */}
+          <RecordChart />
         </div>
       </section>
 
