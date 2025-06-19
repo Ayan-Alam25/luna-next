@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Record } from "@/types/Record";
 import deleteRecord from "@/app/actions/deleteRecord";
 import { GiNightSleep } from "react-icons/gi";
+import { toast } from "sonner";
 
 const RecordItem = ({ record }: { record: Record }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,6 +11,7 @@ const RecordItem = ({ record }: { record: Record }) => {
   const handleDeleteRecord = async (recordId: string) => {
     setIsLoading(true);
     await deleteRecord(recordId);
+    toast.success(<span className="text-center text-red-500">Delete record successfully</span>);
     setIsLoading(false);
   };
 

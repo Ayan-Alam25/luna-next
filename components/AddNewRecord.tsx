@@ -9,20 +9,18 @@ import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { Calendar } from "./ui/calendar";
 import { format } from "date-fns";
+import { toast } from "sonner";
 
 
 const AddNewRecord = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [amount, setAmount] = useState(6);
-  const [alertMessage, setAlertMessage] = useState<string | null>(null);
-  const [alertType, setAlertType] = useState<"success" | "error" | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [sleepQuality, setSleepQuality] = useState("");
   const [date, setDate] = useState<Date>();
 
   const clientAction = async (formData: FormData) => {
     setIsLoading(true);
-    setAlertMessage(null);
 
     formData.set("amount", amount.toString());
     formData.set("text", sleepQuality);
@@ -30,11 +28,10 @@ const AddNewRecord = () => {
     const { error } = await addSleepRecord(formData);
 
     if (error) {
-      setAlertMessage(`Error: ${error}`);
-      setAlertType("error");
+      toast.error(<span className="text-center text-red-500">{error}</span>);
     } else {
-      setAlertMessage("Sleep record added successfully!");
-      setAlertType("success");
+      toast.success(<span className="text-center text-green-500">Successfully added new record</span> 
+      );
       formRef.current?.reset();
       setAmount(6);
       setSleepQuality("");
@@ -102,7 +99,7 @@ const AddNewRecord = () => {
                 <Button
                   variant="outline"
                   className={cn(
-                    "w-full justify-start text-left font-normal py-5",
+                    "w-full justify-start text-left font-normal py-5 ",
                     "border-2 border-gray-300 rounded-lg text-gray-700",
                     "h-[42px] pl-10 bg-white hover:bg-gray-50",
                     !date && "text-gray-400"
@@ -112,7 +109,7 @@ const AddNewRecord = () => {
                   {date ? (
                     format(date, "PPP")
                   ) : (
-                    <span className="mx-auto">Select date</span>
+                    <span className="px-auto">Select date</span>
                   )}
                 </Button>
               </PopoverTrigger>
@@ -201,18 +198,6 @@ const AddNewRecord = () => {
         </button>
       </form>
 
-      {/* Alert Message */}
-      {alertMessage && (
-        <div
-          className={`mt-4 p-3 rounded-md text-sm ${
-            alertType === "success"
-              ? "bg-green-50 text-green-700 border border-green-200"
-              : "bg-red-50 text-red-700 border border-red-200"
-          }`}
-        >
-          {alertMessage}
-        </div>
-      )}
     </div>
   );
 };
