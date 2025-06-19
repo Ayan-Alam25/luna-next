@@ -3,6 +3,13 @@ import { useRef, useState } from "react";
 import addSleepRecord from "@/app/actions/addSleepRecord";
 import { FiCalendar } from "react-icons/fi";
 import { VscNewFile } from "react-icons/vsc";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
+import { Calendar } from "./ui/calendar";
+import { format } from "date-fns";
+
 
 const AddNewRecord = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -11,6 +18,7 @@ const AddNewRecord = () => {
   const [alertType, setAlertType] = useState<"success" | "error" | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [sleepQuality, setSleepQuality] = useState("");
+  const [date, setDate] = useState<Date>();
 
   const clientAction = async (formData: FormData) => {
     setIsLoading(true);
@@ -61,23 +69,24 @@ const AddNewRecord = () => {
             >
               Sleep Quality
             </label>
-            <select
-              id="text"
-              name="text"
+            <Select
               value={sleepQuality}
-              onChange={(e) => setSleepQuality(e.target.value)}
-              className="w-full border-gray-300 rounded-lg  text-gray-700 p-1 border-2"
+              onValueChange={setSleepQuality}
               required
             >
-              <option value="" disabled>
-                How did you feel?
-              </option>
-              <option value="Refreshed">🌞 Refreshed</option>
-              <option value="Tired">😴 Tired</option>
-              <option value="Neutral">😐 Neutral</option>
-              <option value="Exhausted">😫 Exhausted</option>
-              <option value="Energetic">⚡ Energetic</option>
-            </select>
+              <SelectTrigger className="w-full border-gray-300 rounded-lg  text-gray-700 py-5 pr-1 border-2">
+                <SelectValue placeholder="How did you feel?" />
+              </SelectTrigger>
+              <SelectContent className="bg-white">
+                <SelectGroup>
+                  <SelectItem value="Refreshed">🌞 Refreshed</SelectItem>
+                  <SelectItem value="Tired">😴 Tired</SelectItem>
+                  <SelectItem value="Neutral">😐 Neutral</SelectItem>
+                  <SelectItem value="Exhausted">😫 Exhausted</SelectItem>
+                  <SelectItem value="Energetic">⚡ Energetic</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Sleep Date */}
@@ -88,19 +97,45 @@ const AddNewRecord = () => {
             >
               Date
             </label>
-            <div className="relative ">
-              <input
-                type="date"
-                id="date"
-                name="date"
-                className="w-full  border-gray-300 rounded-lg text-gray-700 pl-10 p-1 border-2 "
-                required
-                onFocus={(e) => e.target.showPicker()}
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FiCalendar className="h-5 w-5 text-gray-400" />
-              </div>
-            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "w-full justify-start text-left font-normal py-5",
+                    "border-2 border-gray-300 rounded-lg text-gray-700",
+                    "h-[42px] pl-10 bg-white hover:bg-gray-50",
+                    !date && "text-gray-400"
+                  )}
+                >
+                  <FiCalendar className="absolute h-5 w-5 text-gray-400 ml-30" />
+                  {date ? (
+                    format(date, "PPP")
+                  ) : (
+                    <span className="mx-auto">Select date</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  initialFocus
+                  className="border-2 border-gray-300 rounded-lg"
+                  disabled={(date) =>
+                    date > new Date() || date < new Date("1900-01-01")
+                  }
+                />
+              </PopoverContent>
+            </Popover>
+            {/* Hidden input for form submission */}
+            <input
+              type="hidden"
+              name="date"
+              value={date?.toISOString() || ""}
+              required
+            />
           </div>
         </div>
 
